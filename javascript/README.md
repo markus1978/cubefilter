@@ -1,4 +1,4 @@
-# cubefilter
+# cubefilter client library
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -6,21 +6,32 @@
 [![Dependency Status][depstat-image]][depstat-url]
 [![Downloads][download-badge]][npm-url]
 
-> Precomputes OLAP cubes to be used in dc.js by exposing a crossfilter compatible API.
+This is the client side code for cubefilter. It emulates the (crossfilter)[http://crossfilter.github.io/crossfilter/] 
+API se it can be used to feed pre-computed OLAP data with (dc.js)[https://dc-js.github.io/dc.js/].
 
 ## Install
 
 ```sh
-npm i -D cubefilter
+npm i --save cubefilter
 ```
 
 ## Usage
 
 ```js
-import cubefilter from "cubefilter"
+const cube = cubefilter();
 
-cubefilter() // true
+// set the cube data loaded from serve
+cube.cube(cubeData)
+
+// use it like crossfilter and hand dimensions and groups to dc.js
+revenueDimension = cube.dimension("revenue");
+revenueGroup = cube.group();
+dc.pieChart("my-revenue-chart-div")
+  .dimension(revenueDimension)
+  .group(renvenueGroup);
 ```
+
+See [example](http://github.com/markus1978/cubefilter/example) for a working example.
 
 ## License
 
