@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>example</title>
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/bower_components/dcjs/dc.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+</head>
+<body>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="row">
+  <h2>Nasdaq 100 Index 1985/11/01-2012/06/29</h2>
+  <div id="yearly-bubble-chart" class="dc-chart">
+    <strong>Yearly Performance</strong> (radius: fluctuation/index ratio, color: gain/loss)
+    <a class="reset" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();"
+       style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="row">
+  <div id="gain-loss-chart">
+    <strong>Days by Gain/Loss</strong>
+    <a class="reset" href="javascript:gainOrLossChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+  <div id="quarter-chart">
+    <strong>Quarters</strong>
+    <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+  <div id="day-of-week-chart">
+    <strong>Day of Week</strong>
+    <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+  <div id="fluctuation-chart">
+    <strong>Days by Fluctuation(%)</strong>
+    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+    <a class="reset" href="javascript:fluctuationChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="row">
+  <div>
+    <div class="dc-data-count">
+      <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+      href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="/bower_components/d3/d3.js"></script>
+<script src="/bower_components/crossfilter2/crossfilter.min.js"></script>
+<script src="/bower_components/dcjs/dc.js"></script>
+<script src="/bower_components/colorbrewer/colorbrewer.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<script src="/node_modules/cubefilter/src/index.js"></script>
+
+<!-- build:js scripts/main.js -->
+<script src="scripts/main.js"></script>
+<!-- endbuild -->
+</body>
+</html>
