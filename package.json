@@ -19,7 +19,7 @@
     "coverage": "babel-node node_modules/isparta/bin/isparta cover --report lcov test/index.js",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf ./coverage",
-    "prepublish": "npm run build -s",
+    "prepublishOnly": "npm run build -s",
     "deploy": "git pull --rebase origin master && git push origin master",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",

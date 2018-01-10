@@ -4,7 +4,5 @@ node_js:
   - v8
   - v6
   - v4
-before_script:
-  - cd javascript
 after_script:
   - npm run coveralls
