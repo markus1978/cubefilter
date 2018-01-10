@@ -1,5 +1,5 @@
-import test from "tape";
-import cubefilter from "../src";
+const test =require("tape");
+const cubefilter = require("../src/index.js");
 
 const test_cube = {
   "a1": {
@@ -15,7 +15,7 @@ const test_facts = [
 
 test("dimension", (t) => {
   t.plan(1);
-  const cube = cubefilter(test_cube);
+  const cube = cubefilter.cube(test_cube);
   const group = cube.dimension().group();
   cube.dimension();
   t.deepEqual(group.all(), [{"key": "a1", "value": 3}], "return true")
@@ -23,7 +23,7 @@ test("dimension", (t) => {
 
 test("filter", (t) => {
   t.plan(1);
-  const cube = cubefilter(test_cube);
+  const cube = cubefilter.cube(test_cube);
   const groupA = cube.dimension().group();
   const dimensionB = cube.dimension();
   dimensionB.filterExact("b1");
@@ -32,7 +32,7 @@ test("filter", (t) => {
 
 test("cube", (t) => {
   t.plan(1);
-  const cube = cubefilter();
+  const cube = cubefilter.cube();
   const dim_a = cube.dimension(v => v.a);
   const dim_b = cube.dimension(v => v.b);
   test_facts.forEach(fact => cube.add(fact));
@@ -42,7 +42,7 @@ test("cube", (t) => {
 
 test("all", (t) => {
   t.plan(1);
-  const cube = cubefilter();
+  const cube = cubefilter.cube();
   const all = cube.groupAll();
   test_facts.forEach(fact => cube.add(fact));
   t.deepEqual(all.value(), 2, "return true")
@@ -50,7 +50,7 @@ test("all", (t) => {
 
 test("all-filter", (t) => {
   t.plan(1);
-  const cube = cubefilter();
+  const cube = cubefilter.cube();
   const all = cube.groupAll();
   cube.dimension(v => v.a).filterExact("a1");
   test_facts.forEach(fact => cube.add(fact));
@@ -59,7 +59,7 @@ test("all-filter", (t) => {
 
 test("size", (t) => {
   t.plan(1);
-  const cube = cubefilter();
+  const cube = cubefilter.cube();
   cube.groupAll();
   cube.dimension(v => v.a);
   cube.dimension(v => v.b).group().reduceSum(() => 4);
@@ -71,7 +71,7 @@ test("size", (t) => {
 
 test("group", (t) => {
   t.plan(2);
-  const cube = cubefilter();
+  const cube = cubefilter.cube();
   const dim_a = cube.dimension(v => v.a);
   const dim_b = cube.dimension(v => v.b);
   const group = dim_a.group().reduceSum(() => 4);
@@ -81,4 +81,12 @@ test("group", (t) => {
 
   dim_b.filterExact("b1");
   t.deepEqual(group.all(), [{"key": "a1", "value": 4}], "return true")
+});
+
+test("export", (t) => {
+  t.plan(1);
+  const cube = cubefilter.cube();
+  cube.dimension(v => v.a);
+  test_facts.forEach(fact => cube.add(fact));
+  t.deepEqual(cube.cube, { "a1": { "_": 1}, "a2": { "_": 1}}, "return true")
 });
