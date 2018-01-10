@@ -98,8 +98,7 @@ demonstrates the retention of most dc.js features.)
 
 To serve the example run
 ```
-npm install
-bower install
+yarn
 gulp serve
 ```
 in the [example](http://github.com/markus1978/cubefilter/example) directory.

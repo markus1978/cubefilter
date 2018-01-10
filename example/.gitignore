@@ -1,6 +1,7 @@
 node_modules
-dist
-.tmp
-bower_components
-test/bower_components
-app/cube.json
+*.log
+build
+tmp
+.grunt
+.DS_Store
+src/cube.json

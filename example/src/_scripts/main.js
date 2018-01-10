@@ -1,5 +1,10 @@
 'use strict';
 
+const ndx = require('./definitions.js').ndx;
+const dc = require('dc');
+const d3 = require('d3');
+const colorbrewer = require('colorbrewer');
+
 d3.json('cube.json', function (cube) {
   const numberFormat = d3.format('.2f');
 
@@ -9,7 +14,7 @@ d3.json('cube.json', function (cube) {
   // Bubble Chart
   const yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
   yearlyBubbleChart
-    // (_optional_) define chart width, `default = 200`
+  // (_optional_) define chart width, `default = 200`
     .width(990)
     // (_optional_) define chart height, `default = 200`
     .height(250)
@@ -90,7 +95,7 @@ d3.json('cube.json', function (cube) {
   // Pie/Donut Charts
   const gainOrLossChart = dc.pieChart('#gain-loss-chart');
   gainOrLossChart
-    // (_optional_) define chart width, `default = 200`
+  // (_optional_) define chart width, `default = 200`
     .width(180)
     // (optional) define chart height, `default = 200`
     .height(180)

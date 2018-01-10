@@ -1,14 +1,13 @@
 {
-  "generator-express": {
-    "promptValues": {
-      "type": "Basic",
-      "viewEngine": "Jade",
-      "cssPreprocessor": "None",
-      "buildTool": "Gulp"
-    }
-  },
-  "generator-mocha": {
-    "ui": "bdd",
-    "rjs": false
+  "generator-yeogurt": {
+    "config": {
+      "projectName": "cubefiler-example",
+      "htmlOption": "jade",
+      "jsPreprocessor": "es6",
+      "cssOption": "sass",
+      "sassSyntax": "scss",
+      "testFramework": "none"
+    },
+    "version": "2.0.1"
   }
 }

@@ -1,0 +1,28 @@
+@import 'node_modules/normalize.css/normalize';
+@import 'node_modules/dc/dc';
+@import 'node_modules/bootstrap/dist/css/bootstrap';
+
+// Box sizing partial styles:
+// Apply a natural box layout model to all elements
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  background: #fafafa;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  width: 990px;
+  margin: auto;
+}

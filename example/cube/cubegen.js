@@ -3,7 +3,7 @@ const jsonfile = require('jsonfile');
 const d3 = require('d3');
 
 // import the cube definitions that will also be used in the browser
-const ndx = require('./../app/scripts/definitions.js').ndx;
+const ndx = require('./../src/_scripts/definitions.js').ndx;
 
 let header = null;
 // read the example data from .csv (its the data from the dc.js example)
@@ -32,7 +32,7 @@ csv.fromPath('cube/ndx.csv')
   })
   .on('end', () => {
     // store the cube as json
-    jsonfile.writeFile('app/cube.json', ndx.cube);
+    jsonfile.writeFile('src/cube.json', ndx.cube);
   });
 
 
