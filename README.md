@@ -99,8 +99,11 @@ in the [example](http://github.com/markus1978/cubefilter/example) directory.
 
 ## Limitations
 * OLAP cubes are not limited by the number of facts, but the number of
-dimensions and dimension values occupied.
-* Dimension order used to compute and show cubes is relevant.
+dimensions and dimension values occupied. Depending on your use case
+you have to choose whether to go with crossfilter or cubefilter. 
+For example, the monthly data of the dc.js example had to be omitted for a reasonable cube size.
+* Dimension order used to compute and show cubes is relevant. Share
+cube definition code among server and client code.
 * Only one group per dimension at the moment. 
 
 ## License
