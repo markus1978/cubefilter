@@ -42,7 +42,7 @@
     }
   },
   "dependencies": {
-    "cubefilter": "file:./../javascript",
+    "cubefilter": "^1.1.0",
     "dc": "^2.1.9",
     "fast-csv": "^2.4.1"
   }
