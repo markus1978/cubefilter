@@ -42,11 +42,8 @@
     }
   },
   "dependencies": {
-    "connect-livereload": "^0.6.0",
     "cubefilter": "file:./../javascript",
     "dc": "^2.1.9",
-    "express": "^4.16.2",
-    "gulp-express": "^0.3.5",
-    "gulp-live-server": "^0.0.31"
+    "fast-csv": "^2.4.1"
   }
 }

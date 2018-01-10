@@ -5,7 +5,7 @@ const browserSync = require('browser-sync').create();
 const del = require('del');
 const wiredep = require('wiredep').stream;
 const runSequence = require('run-sequence');
-
+const exec = require('child_process').exec;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
@@ -89,7 +89,7 @@ gulp.task('extras', () => {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', () => {
-  runSequence(['clean', 'wiredep'], ['styles', 'scripts', 'fonts'], () => {
+  runSequence(['clean', 'wiredep', 'cube'], ['styles', 'scripts', 'fonts'], () => {
     browserSync.init({
       notify: false,
       port: 9000,
@@ -161,5 +161,13 @@ gulp.task('default', () => {
   return new Promise(resolve => {
     dev = false;
     runSequence(['clean', 'wiredep'], 'build', resolve);
+  });
+});
+
+// pre compute the cube
+gulp.task('cube', () => {
+  exec('node cube/cubegen.js', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
   });
 });
