@@ -24,6 +24,8 @@ smaller than the dataset (facts) they represent. Cubefilter can be used to incre
 and serve cubes as simple and compact json structures on server side. On client side, cubefilter fakes
 crossfilter's API to feed the aggregated cube data to  dc.js.
 
+There is also a [python-backend](https://github.com/markus1978/cubefilter-python) that can be used to create cubes.
+
 ## Install
 
 ```sh
@@ -60,6 +62,9 @@ And save the cube to .json
 const jsonfile = require('jsonfile');
 jsonfile.writeFile('sales-cube.json', sales.cube);
 ```
+
+You don't use javascript for your server: there is also 
+a [python-backend](https://github.com/markus1978/cubefilter-python) for cubefilter. 
 
 ### Client
 Here we want to use pre computed cubes and visualize them with dc.js.
