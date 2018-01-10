@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Coveralls Status][coveralls-image]][coveralls-url]
+[![Coverage Status](https://coveralls.io/repos/github/markus1978/crossfilter/badge.svg?branch=master)](https://coveralls.io/github/markus1978/crossfilter?branch=master)
 [![Dependency Status][depstat-image]][depstat-url]
 [![Downloads][download-badge]][npm-url]
 
