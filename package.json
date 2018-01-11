@@ -16,7 +16,7 @@
     "prebuild": "npm run check -s && npm run clean -s",
     "build": "babel --optional runtime src -d dist",
     "postbuild": "npm run test -s",
-    "coverage": "babel-node node_modules/isparta/bin/isparta cover --report lcov test/index.js",
+    "coverage": "babel-node node_modules/isparta/bin/isparta cover --report lcov --report html test/index.js",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf ./coverage",
     "prepublishOnly": "npm run build -s",

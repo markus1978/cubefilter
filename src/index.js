@@ -1,4 +1,4 @@
-(function(exports) {
+(function(exports) {  // allow usage in node.js and (non browserify) browsers
   exports.cube = function(cube) {
 
     const cubefilter = {
@@ -12,23 +12,25 @@
       _dimensions: []
     };
 
-    function addOrRemoveFact(fact, getReduceFunc) {
-      // init cube if necessary
-      if (!cubefilter.cube) {
-        cubefilter.cube = {};
+    function addOrRemoveFact(fact, add) {
+      // find/create the right cell based on dimensions and keep the path
+      let cell = cubefilter.cube;
+      let path; // neccessary for delete
+      if (!add) path = new Array(cubefilter._dimensions.length);
+      for (let i = 0; i < cubefilter._dimensions.length; i++) {
+        const dimension = cubefilter._dimensions[i];
+        const value = dimension._value(fact);
+        cell[value] = cell[value] || {};
+        if (!add) path[i] = { cell: cell, value: value };
+        cell = cell[value];
       }
 
-      // find/create the right cell based on dimensions
-      let cell = cubefilter.cube;
-      cubefilter._dimensions.forEach(dimension => {
-        const value = dimension._value(fact);
-        cell[value] =cell[value] || {};
-        cell = cell[value];
-      });
-
       // run all group reductions for each dimension
-      cell["_"] = cell["_"] || 0;
-      cell["_"]++;
+      if (add) {
+        cell["_"] = (cell["_"] || 0) + 1;
+      } else {
+        cell["_"]--;
+      }
       for (let i = 0; i < cubefilter._dimensions.length; i++) {
         dimension = cubefilter._dimensions[i];
         if (!dimension._group._isCount) {
@@ -39,21 +41,33 @@
             const reduceInit = dimension._group._reduceInit;
             group_value = reduceInit();
           }
-          const reduce = getReduceFunc(dimension._group);
+          const reduce = add ? dimension._group._reduceAdd : dimension._group._reduceRemove;
           group_value = reduce(group_value, fact);
           group_values[i] = group_value;
+        }
+      }
+
+      // remove cell if empty
+      if (!add) {
+        if (cell["_"] === 0) {
+          delete cell["_"];
+        }
+        for (let i = cubefilter._dimensions.length - 1; i >= 0; i--) {
+          const empty = Object.keys(cell).length === 0;
+          cell = path[i].cell;
+          if (empty) {
+            delete cell[path[i].value];
+          }
         }
       }
     }
 
     function addFact(fact) {
-      cubefilter._size++;
-      addOrRemoveFact(fact, (group) => group._reduceAdd);
+      addOrRemoveFact(fact, true);
     }
 
     function removeFact(fact) {
-      cubefilter._size--;
-      addOrRemoveFact(fact, (group) => group._reduceRemove);
+      addOrRemoveFact(fact, false);
     }
 
     function size(cell) {
@@ -87,7 +101,6 @@
         dispose: null,
         remove: null, // for backwards-compatibility
         accessor: null,
-        id: function() { return id; },
 
         _group: null,
         _value: value,
@@ -100,8 +113,12 @@
       function filter(filter) {
         if (!filter) {
           filterAll();
+        } else if ( Object.prototype.toString.call(filter) === '[object Array]') {
+          filterRange(filter)
+        } else if (filter instanceof Function) {
+          filterFunction(filter);
         } else {
-          throw "Not implemented";
+          filterExact(filter);
         }
         return dimension;
       }
@@ -187,9 +204,7 @@
           }
 
           function aggr_cell_value(one, two) {
-            if (!one) {
-              return dimension._group._reduceInit();
-            } else if (!two) {
+            if (!two) {
               return one;
             } else {
               return dimension._group._reduceAggr(one, two);

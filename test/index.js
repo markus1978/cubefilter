@@ -21,13 +21,61 @@ test("dimension", (t) => {
   t.deepEqual(group.all(), [{"key": "a1", "value": 3}], "return true")
 });
 
-test("filter", (t) => {
-  t.plan(1);
+test("filter-exact", (t) => {
+  t.plan(2);
   const cube = cubefilter.cube(test_cube);
   const groupA = cube.dimension().group();
   const dimensionB = cube.dimension();
   dimensionB.filterExact("b1");
-  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true")
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true");
+
+  dimensionB.filter("b1");
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true");
+});
+
+test("filter-all", (t) => {
+  t.plan(2);
+  const cube = cubefilter.cube(test_cube);
+  const groupA = cube.dimension().group();
+  const dimensionB = cube.dimension();
+  dimensionB.filterExact("b1");
+  dimensionB.filterAll();
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 3}], "return true");
+
+  dimensionB.filter();
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 3}], "return true");
+});
+
+test("filter-function", (t) => {
+  t.plan(2);
+  const cube = cubefilter.cube(test_cube);
+  const groupA = cube.dimension().group();
+  const dimensionB = cube.dimension();
+  dimensionB.filterFunction((value) => value === "b1");
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true");
+
+  dimensionB.filter((value) => value === "b1");
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true");
+});
+
+test("filter-range", (t) => {
+  t.plan(2);
+  const cube = cubefilter.cube(test_cube);
+  const groupA = cube.dimension().group();
+  const dimensionB = cube.dimension();
+  dimensionB.filterRange(["b1", "b1"]);
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true");
+
+  dimensionB.filter(["b1", "b1"]);
+  t.deepEqual(groupA.all(), [{"key": "a1", "value": 1}], "return true");
+});
+
+test("group-filter", (t) => {
+  t.plan(1);
+  const cube = cubefilter.cube(test_cube);
+  const groupA = cube.dimension().group();
+  groupA.filter(() => false);
+  t.deepEqual(groupA.all(), [], "return true");
 });
 
 test("cube", (t) => {
@@ -89,4 +137,14 @@ test("export", (t) => {
   cube.dimension(v => v.a);
   test_facts.forEach(fact => cube.add(fact));
   t.deepEqual(cube.cube, { "a1": { "_": 1}, "a2": { "_": 1}}, "return true")
+});
+
+test("remove-fact", (t) => {
+  t.plan(1);
+  const cube = cubefilter.cube();
+  cube.dimension(v => v.a);
+  cube.dimension(v => v.b);
+  test_facts.forEach(fact => cube.add(fact));
+  test_facts.forEach(fact => cube.remove(fact));
+  t.deepEqual(cube.cube, {}, "return true");
 });
