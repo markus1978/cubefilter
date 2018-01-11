@@ -89,8 +89,8 @@ d3.json('cube.json', function (cube) {
     // Set a custom tick format. Both `.yAxis()` and `.xAxis()` return an axis object,
     // so any additional method chaining applies to the axis, not the chart.
     .yAxis().tickFormat(function (v) {
-    return v + '%';
-  });
+      return v + '%';
+    });
 
   // Pie/Donut Charts
   const gainOrLossChart = dc.pieChart('#gain-loss-chart');

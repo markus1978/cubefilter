@@ -1,7 +1,8 @@
 const cubefilter = require('cubefilter');
 const d3 = require('d3');
 
-const scope = (typeof window === 'undefined') ? {} : window; // export dimensions and groups to the global window scope in browsers
+// export dimensions and groups to the global window scope in browsers
+const scope = (typeof window === 'undefined') ? {} : window;
 const ndx = module.exports.ndx = scope.cube =cubefilter.cube();
 scope.all = ndx.groupAll();
 
